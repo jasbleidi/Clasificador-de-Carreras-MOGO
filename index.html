@@ -3,1344 +3,866 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MONOPOLY GO - Carrera</title>
+<title>Monopoly GO · Carreras</title>
 
 <style>
-
-/* =========================
-   BASE
-========================= */
-
-*{
-  box-sizing:border-box;
+:root {
+  --red: #e53935;
+  --dark-red: #b71c1c;
+  --cream: #fffaf0;
+  --cream-2: #fff4dc;
+  --brown: #6d4c41;
+  --text: #33251f;
+  --muted: #806f66;
+  --white: #ffffff;
+  --gold: #f5c542;
+  --shadow: 0 8px 24px rgba(91, 53, 35, .12);
 }
 
-:root{
-  --red:#e51c23;
-  --dark:#222;
-  --gold:#f6c945;
-  --cream:#f5f1e6;
-  --white:#ffffff;
-  --gray:#777;
-
-  --pink:#ed4f91;
-  --yellow:#f5c400;
-  --green:#43a047;
-  --blue:#2385d7;
-  --purple:#7b4bb7;
-  --orange:#f28c28;
-  --brown:#8b572a;
-  --lightblue:#42b9d5;
+* {
+  box-sizing: border-box;
 }
 
-body{
-  margin:0;
-  padding:10px 8px 30px;
-  font-family:Arial,Helvetica,sans-serif;
+body {
+  margin: 0;
+  padding: 18px;
+  font-family: Arial, Helvetica, sans-serif;
   background:
-    linear-gradient(
-      135deg,
-      #f8f5ed 0%,
-      #eee9dc 100%
-    );
-  color:var(--dark);
+    radial-gradient(circle at top left, #fff5dc 0, transparent 35%),
+    radial-gradient(circle at bottom right, #ffe7df 0, transparent 35%),
+    #f7efe4;
+  color: var(--text);
 }
 
-.app{
-  width:100%;
-  max-width:650px;
-  margin:auto;
+.app {
+  width: min(100%, 900px);
+  margin: auto;
 }
 
+/* ---------- HEADER ---------- */
 
-/* =========================
-   ENCABEZADO
-========================= */
-
-.header{
-  background:var(--red);
-  border:3px solid var(--dark);
-  border-radius:14px;
-  padding:13px 12px;
-  text-align:center;
-  color:white;
-  box-shadow:4px 4px 0 var(--dark);
-  margin-bottom:12px;
+.header {
+  background: linear-gradient(145deg, #ef3e38, #c92327);
+  color: white;
+  border-radius: 28px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  border: 3px solid white;
 }
 
-.header-icon{
-  font-size:27px;
-  line-height:1;
+.header::after {
+  content: "★";
+  position: absolute;
+  right: 18px;
+  top: 8px;
+  font-size: 80px;
+  opacity: .10;
+  transform: rotate(12deg);
 }
 
-.header h1{
-  font-size:21px;
-  margin:4px 0 2px;
-  font-weight:900;
+.header h1 {
+  margin: 0;
+  font-size: clamp(24px, 5vw, 38px);
+  font-weight: 900;
+  letter-spacing: -1px;
 }
 
-.header p{
-  margin:0;
-  font-size:11px;
-  font-weight:600;
+.header p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  opacity: .92;
 }
 
+/* ---------- CARDS ---------- */
 
-/* =========================
-   TARJETAS
-========================= */
-
-.card{
-  background:white;
-  border:2px solid var(--dark);
-  border-radius:12px;
-  padding:11px;
-  margin-bottom:12px;
-  box-shadow:3px 3px 0 rgba(0,0,0,.15);
+.card {
+  margin-top: 16px;
+  background: rgba(255,255,255,.92);
+  border: 2px solid #eaded0;
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow: var(--shadow);
 }
 
-.card-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:9px;
+.card-title {
+  margin: 0 0 5px;
+  font-size: 18px;
+  font-weight: 900;
 }
 
-.card-title h2{
-  margin:0;
-  font-size:15px;
-  font-weight:900;
+.card-subtitle {
+  margin: 0 0 15px;
+  color: var(--muted);
+  font-size: 13px;
 }
 
-.badge{
-  background:var(--gold);
-  border:1.5px solid var(--dark);
-  border-radius:6px;
-  padding:3px 6px;
-  font-size:8px;
-  font-weight:900;
+/* ---------- COLOR CONFIG ---------- */
+
+.color-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  justify-content: center;
 }
 
-
-/* =========================
-   CONFIGURACIÓN DE COLORES
-========================= */
-
-.color-settings{
-  background:#faf8f1;
-  border:1px solid #d8d2c5;
-  border-radius:9px;
-  padding:9px;
+.setup-color {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 2px 7px rgba(0,0,0,.20);
+  cursor: pointer;
+  position: relative;
+  transition: .15s ease;
 }
 
-.color-settings-title{
-  font-size:11px;
-  font-weight:900;
-  margin-bottom:7px;
+.setup-color:hover {
+  transform: scale(1.08);
 }
 
-.available-colors{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-}
-
-.setup-color{
-  width:29px;
-  height:29px;
-  border-radius:50%;
-  border:3px solid transparent;
-  cursor:pointer;
-  position:relative;
-  transition:.15s;
-}
-
-.setup-color.selected{
-  border-color:#111;
-  box-shadow:0 0 0 2px white,0 0 0 4px #111;
-  transform:scale(1.08);
-}
-
-.setup-color.selected::after{
-  content:"✓";
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-size:13px;
-  font-weight:900;
-  text-shadow:0 1px 2px #000;
-}
-
-.setup-help{
-  font-size:9px;
-  color:#777;
-  margin-top:7px;
-}
-
-
-/* =========================
-   COLORES
-========================= */
-
-.c-red{background:var(--red);}
-.c-pink{background:var(--pink);}
-.c-yellow{background:var(--yellow);}
-.c-green{background:var(--green);}
-.c-blue{background:var(--blue);}
-.c-purple{background:var(--purple);}
-.c-orange{background:var(--orange);}
-.c-brown{background:var(--brown);}
-.c-lightblue{background:var(--lightblue);}
-
-
-/* =========================
-   TABLA
-========================= */
-
-.table-wrap{
-  width:100%;
-  overflow:hidden;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  table-layout:fixed;
-}
-
-th{
-  background:#222;
-  color:white;
-  font-size:10px;
-  font-weight:900;
-  padding:7px 3px;
-}
-
-td{
-  border-bottom:1px solid #e7e3da;
-  text-align:center;
-  padding:6px 2px;
-  height:48px;
-}
-
-th:first-child,
-td:first-child{
-  width:42px;
-}
-
-th:nth-child(2),
-th:nth-child(4),
-th:nth-child(6){
-  width:29%;
-}
-
-th:nth-child(3),
-th:nth-child(5),
-th:nth-child(7){
-  width:32px;
-}
-
-
-/* =========================
-   POSICIONES
-========================= */
-
-.place{
-  font-size:11px;
-  font-weight:900;
-}
-
-.place-1{
-  color:#b58a00;
-}
-
-.place-2{
-  color:#777;
-}
-
-.place-3{
-  color:#a76428;
-}
-
-
-/* =========================
-   SELECTOR DE CÍRCULOS
-========================= */
-
-.color-picker{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  min-height:34px;
-}
-
-.team-circle{
-  width:22px;
-  height:22px;
-  border-radius:50%;
-  border:2px solid transparent;
-  cursor:pointer;
-  flex-shrink:0;
-  transition:.12s;
-}
-
-.team-circle:hover{
-  transform:scale(1.08);
-}
-
-.team-circle.active{
-  border:3px solid #111;
+.setup-color.selected {
+  transform: scale(1.08);
   box-shadow:
-    0 0 0 2px white,
-    0 0 0 3px #111;
-  transform:scale(1.08);
+    0 0 0 3px var(--text),
+    0 3px 10px rgba(0,0,0,.22);
 }
 
-.team-circle.empty{
-  background:#eee;
-  border:2px dashed #aaa;
+.setup-color.selected::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+  text-shadow: 0 1px 3px rgba(0,0,0,.6);
 }
 
-
-/* =========================
-   PUNTOS
-========================= */
-
-.points{
-  font-size:11px;
-  font-weight:900;
-  color:#222;
+.selected-info {
+  margin-top: 13px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
 }
 
-
-/* =========================
-   RANKING
-========================= */
-
-.ranking{
-  width:100%;
+.selected-info strong {
+  color: var(--text);
 }
 
-.rank-row{
-  display:grid;
-  grid-template-columns:34px 25px minmax(0,1fr) 55px;
-  align-items:center;
-  gap:6px;
+/* ---------- TABLE ---------- */
 
-  background:#faf9f5;
-  border:1px solid #ded9cd;
-  border-radius:8px;
-
-  min-height:43px;
-  padding:5px 7px;
-  margin-bottom:6px;
+.table-card {
+  overflow: hidden;
 }
 
-.rank-row:first-child{
-  background:#fff8d5;
-  border:2px solid var(--gold);
+.table-wrapper {
+  overflow-x: auto;
+  padding-bottom: 3px;
 }
 
-.rank-position{
-  text-align:center;
-  font-size:12px;
-  font-weight:900;
+table {
+  width: 100%;
+  min-width: 610px;
+  border-collapse: separate;
+  border-spacing: 0 7px;
 }
 
-.rank-color{
-  width:19px;
-  height:19px;
-  border-radius:50%;
-  border:2px solid #222;
+thead th {
+  background: #f4e9d9;
+  padding: 11px 7px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #6d5a50;
+  font-weight: 900;
 }
 
-.rank-team{
-  font-size:11px;
-  font-weight:900;
-  color:#555;
+thead th:first-child {
+  border-radius: 13px 0 0 13px;
 }
 
-.rank-score{
-  text-align:right;
-  font-size:17px;
-  font-weight:900;
+thead th:last-child {
+  border-radius: 0 13px 13px 0;
 }
 
-.rank-score small{
-  display:block;
-  font-size:7px;
-  color:#777;
+tbody tr {
+  background: #fffaf5;
 }
 
-
-/* =========================
-   BOTÓN
-========================= */
-
-.reset{
-  width:100%;
-  padding:10px;
-  border:2px solid var(--dark);
-  border-radius:9px;
-  background:white;
-  color:var(--red);
-  font-size:11px;
-  font-weight:900;
-  cursor:pointer;
-  box-shadow:3px 3px 0 var(--dark);
+tbody td {
+  padding: 9px 6px;
+  text-align: center;
+  border-top: 1px solid #eee0d2;
+  border-bottom: 1px solid #eee0d2;
 }
 
-.reset:active{
-  transform:translate(2px,2px);
-  box-shadow:1px 1px 0 var(--dark);
+tbody td:first-child {
+  border-left: 1px solid #eee0d2;
+  border-radius: 15px 0 0 15px;
 }
 
-
-/* =========================
-   NOTA
-========================= */
-
-.note{
-  text-align:center;
-  color:#777;
-  font-size:9px;
-  margin-top:8px;
+tbody td:last-child {
+  border-right: 1px solid #eee0d2;
+  border-radius: 0 15px 15px 0;
 }
 
-
-/* =========================
-   CELULAR
-========================= */
-
-@media(max-width:430px){
-
-  body{
-    padding:7px 5px 25px;
-  }
-
-  .header{
-    padding:11px 8px;
-  }
-
-  .header h1{
-    font-size:19px;
-  }
-
-  .card{
-    padding:8px;
-    margin-bottom:9px;
-  }
-
-  .card-title h2{
-    font-size:14px;
-  }
-
-  th{
-    font-size:9px;
-    padding:6px 1px;
-  }
-
-  td{
-    padding:5px 1px;
-    height:44px;
-  }
-
-  .team-circle{
-    width:19px;
-    height:19px;
-  }
-
-  .color-picker{
-    gap:3px;
-  }
-
-  .rank-row{
-    grid-template-columns:29px 22px minmax(0,1fr) 48px;
-    padding:5px;
-  }
-
-  .rank-color{
-    width:17px;
-    height:17px;
-  }
-
-  .rank-score{
-    font-size:15px;
-  }
-
+.place {
+  font-size: 16px;
+  font-weight: 900;
+  width: 65px;
 }
 
+/* ---------- TEAM PICKER ---------- */
 
-/* =========================
-   CELULAR MUY PEQUEÑO
-========================= */
-
-@media(max-width:350px){
-
-  .team-circle{
-    width:17px;
-    height:17px;
-  }
-
-  .color-picker{
-    gap:2px;
-  }
-
-  th{
-    font-size:8px;
-  }
-
-  td{
-    height:41px;
-  }
-
+.team-picker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  min-height: 43px;
 }
 
+.team-dot {
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 2px 5px rgba(0,0,0,.22);
+  cursor: pointer;
+  transition: .15s ease;
+  flex-shrink: 0;
+}
+
+.team-dot:hover {
+  transform: scale(1.12);
+}
+
+.team-dot.empty {
+  background: #f1e9df;
+  border-color: #d8cabc;
+  position: relative;
+}
+
+.team-dot.empty::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border: 2px solid #bca99b;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.team-dot.active {
+  transform: scale(1.12);
+  box-shadow: 0 0 0 2px var(--text);
+}
+
+/* ---------- POINTS ---------- */
+
+.points {
+  font-weight: 900;
+  color: #715d52;
+  font-size: 13px;
+  min-width: 35px;
+}
+
+/* ---------- FINAL RANKING ---------- */
+
+.ranking {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.rank-row {
+  display: grid;
+  grid-template-columns: 42px 1fr 70px;
+  align-items: stretch;
+  min-height: 54px;
+  border-radius: 17px;
+  overflow: hidden;
+  box-shadow: 0 3px 9px rgba(0,0,0,.08);
+  border: 2px solid rgba(0,0,0,.07);
+}
+
+.rank-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  background: rgba(255,255,255,.75);
+}
+
+.rank-team {
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
+  font-size: 16px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,.45);
+}
+
+.rank-points {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,.88);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+/* ---------- BUTTON ---------- */
+
+.reset-button {
+  width: 100%;
+  margin-top: 15px;
+  border: none;
+  border-radius: 17px;
+  padding: 13px 18px;
+  background: #33251f;
+  color: white;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: .15s ease;
+}
+
+.reset-button:hover {
+  background: #4b372e;
+  transform: translateY(-1px);
+}
+
+.warning {
+  display: none;
+  margin-top: 12px;
+  padding: 10px 13px;
+  background: #fff0e5;
+  border: 1px solid #f2c8ae;
+  border-radius: 13px;
+  color: #8a4d2c;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .header {
+    border-radius: 23px;
+    padding: 18px;
+  }
+
+  .card {
+    border-radius: 21px;
+    padding: 14px;
+  }
+
+  .setup-color {
+    width: 40px;
+    height: 40px;
+  }
+
+  .team-dot {
+    width: 28px;
+    height: 28px;
+  }
+
+  table {
+    min-width: 560px;
+  }
+
+  .rank-row {
+    grid-template-columns: 38px 1fr 65px;
+  }
+}
 </style>
 </head>
-
 
 <body>
 
 <div class="app">
 
+  <header class="header">
+    <h1>MONOPOLY GO!</h1>
+    <p>Clasificador de Carreras 🏁</p>
+  </header>
 
-<!-- =========================
-     ENCABEZADO
-========================= -->
+  <!-- COLORES QUE COMPITEN -->
+  <section class="card">
+    <h2 class="card-title">🎨 Colores que compiten</h2>
+    <p class="card-subtitle">
+      Selecciona exactamente los 4 equipos de esta carrera
+    </p>
 
-<div class="header">
+    <div class="color-options" id="colorOptions"></div>
 
-  <div class="header-icon">🎩</div>
+    <div class="selected-info">
+      Seleccionados:
+      <strong><span id="selectedCount">0</span>/4</strong>
+    </div>
 
-  <h1>MONOPOLY GO</h1>
+    <div class="warning" id="warning">
+      Debes seleccionar exactamente 4 colores para comenzar.
+    </div>
+  </section>
 
-  <p>🏁 Carrera · Clasificación</p>
+  <!-- RESULTADOS -->
+  <section class="card table-card">
+    <h2 class="card-title">🏁 Resultados de las carreras</h2>
+    <p class="card-subtitle">
+      Toca un círculo para asignar ese equipo a la posición
+    </p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Lugar</th>
+            <th>Ronda 1</th>
+            <th>Pts.</th>
+            <th>Ronda 2</th>
+            <th>Pts.</th>
+            <th>Ronda 3</th>
+            <th>Pts.</th>
+          </tr>
+        </thead>
+
+        <tbody id="resultsBody"></tbody>
+      </table>
+    </div>
+
+    <button class="reset-button" onclick="resetResults()">
+      ↻ Reiniciar resultados
+    </button>
+  </section>
+
+  <!-- CLASIFICACIÓN -->
+  <section class="card">
+    <h2 class="card-title">🏆 Clasificación final</h2>
+    <p class="card-subtitle">
+      Posición general según los puntos acumulados
+    </p>
+
+    <div class="ranking" id="ranking"></div>
+  </section>
 
 </div>
-
-
-<!-- =========================
-     COLORES DE LA CARRERA
-========================= -->
-
-<div class="card">
-
-  <div class="card-title">
-
-    <h2>🎨 Colores que compiten</h2>
-
-    <div class="badge">
-      ELIGE 4
-    </div>
-
-  </div>
-
-
-  <div class="color-settings">
-
-    <div class="color-settings-title">
-      Selecciona los cuatro equipos de esta carrera
-    </div>
-
-
-    <div
-      id="availableColors"
-      class="available-colors">
-    </div>
-
-
-    <div class="setup-help">
-      Puedes cambiar los colores cuando comience una nueva carrera.
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     RESULTADOS
-========================= -->
-
-<div class="card">
-
-  <div class="card-title">
-
-    <h2>🏁 Resultados</h2>
-
-    <div class="badge">
-      PUNTOS
-    </div>
-
-  </div>
-
-
-  <div class="table-wrap">
-
-    <table>
-
-      <thead>
-
-        <tr>
-
-          <th>Lugar</th>
-
-          <th>Ronda 1</th>
-          <th>#</th>
-
-          <th>Ronda 2</th>
-          <th>#</th>
-
-          <th>Ronda 3</th>
-          <th>#</th>
-
-        </tr>
-
-      </thead>
-
-      <tbody id="rounds"></tbody>
-
-    </table>
-
-  </div>
-
-
-  <div class="note">
-
-    Rondas 1 y 2 · 🥇 10 · 🥈 8 · 🥉 5 · 4.º 3
-    <br>
-    Ronda 3 · 🥇 20 · 🥈 16 · 🥉 10 · 4.º 6
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     CLASIFICACIÓN
-========================= -->
-
-<div class="card">
-
-  <div class="card-title">
-
-    <h2>🏆 Clasificación final</h2>
-
-    <div class="badge">
-      TOTAL
-    </div>
-
-  </div>
-
-
-  <div
-    id="ranking"
-    class="ranking">
-  </div>
-
-</div>
-
-
-<!-- =========================
-     REINICIAR
-========================= -->
-
-<button
-  class="reset"
-  onclick="resetGame()">
-
-  ↻ Reiniciar resultados
-
-</button>
-
-
-</div>
-
 
 <script>
 
-
 /* =========================================================
-   PALETA DE COLORES
+   CONFIGURACIÓN
 ========================================================= */
 
-const colorOptions = [
-
-  {
-    id:"red",
-    name:"Rojo",
-    class:"c-red"
+const availableColors = {
+  red: {
+    name: "Rojo",
+    color: "#e53935"
   },
 
-  {
-    id:"pink",
-    name:"Rosa",
-    class:"c-pink"
+  pink: {
+    name: "Rosado",
+    color: "#ec407a"
   },
 
-  {
-    id:"yellow",
-    name:"Amarillo",
-    class:"c-yellow"
+  yellow: {
+    name: "Amarillo",
+    color: "#fbc02d"
   },
 
-  {
-    id:"green",
-    name:"Verde",
-    class:"c-green"
+  green: {
+    name: "Verde",
+    color: "#43a047"
   },
 
-  {
-    id:"blue",
-    name:"Azul",
-    class:"c-blue"
+  blue: {
+    name: "Azul",
+    color: "#1e88e5"
   },
 
-  {
-    id:"purple",
-    name:"Morado",
-    class:"c-purple"
+  purple: {
+    name: "Morado",
+    color: "#8e44ad"
   },
 
-  {
-    id:"orange",
-    name:"Naranja",
-    class:"c-orange"
+  orange: {
+    name: "Naranja",
+    color: "#fb8c00"
   },
 
-  {
-    id:"brown",
-    name:"Marrón",
-    class:"c-brown"
+  brown: {
+    name: "Café",
+    color: "#795548"
   },
 
-  {
-    id:"lightblue",
-    name:"Azul claro",
-    class:"c-lightblue"
+  lightblue: {
+    name: "Celeste",
+    color: "#29b6f6"
   }
+};
 
-];
+const places = ["1.º", "2.º", "3.º", "4.º"];
 
-
-/* =========================================================
-   COLORES SELECCIONADOS
-========================================================= */
-
-const savedColors =
-  JSON.parse(
-    localStorage.getItem("monopolyRaceColors") || "null"
-  );
-
+const points = {
+  1: [10, 8, 5, 3],
+  2: [10, 8, 5, 3],
+  3: [20, 16, 10, 6]
+};
 
 let selectedColors =
-  savedColors ||
-  ["red","pink","yellow","green"];
+  JSON.parse(localStorage.getItem("monopolyRaceColors")) ||
+  ["red", "pink", "yellow", "green"];
+
+let results =
+  JSON.parse(localStorage.getItem("monopolyRace")) ||
+  {
+    1: ["", "", "", ""],
+    2: ["", "", "", ""],
+    3: ["", "", "", ""]
+  };
+
+
+/* =========================================================
+   GUARDAR
+========================================================= */
+
+function saveData() {
+  localStorage.setItem(
+    "monopolyRaceColors",
+    JSON.stringify(selectedColors)
+  );
+
+  localStorage.setItem(
+    "monopolyRace",
+    JSON.stringify(results)
+  );
+}
+
+
+/* =========================================================
+   COLORES QUE COMPITEN
+========================================================= */
+
+function renderColorOptions() {
+
+  const container = document.getElementById("colorOptions");
+
+  container.innerHTML = "";
+
+  Object.keys(availableColors).forEach(key => {
+
+    const button = document.createElement("button");
+
+    button.className = "setup-color";
+
+    button.style.background =
+      availableColors[key].color;
+
+    button.title =
+      availableColors[key].name;
+
+    if (selectedColors.includes(key)) {
+      button.classList.add("selected");
+    }
+
+    button.onclick = () => selectRaceColor(key);
+
+    container.appendChild(button);
+  });
+
+  document.getElementById("selectedCount").textContent =
+    selectedColors.length;
+
+  document.getElementById("warning").style.display =
+    selectedColors.length !== 4 ? "block" : "none";
+}
+
+
+function selectRaceColor(key) {
+
+  /* Si ya está seleccionado, no hacemos nada */
+  if (selectedColors.includes(key)) {
+    return;
+  }
+
+  /*
+    Si ya hay 4 colores:
+    reemplazamos el último seleccionado por el nuevo.
+    Así siempre se pueden cambiar los colores.
+  */
+  if (selectedColors.length >= 4) {
+
+    selectedColors[3] = key;
+
+  } else {
+
+    selectedColors.push(key);
+  }
+
+  /*
+    Al cambiar los equipos de la carrera,
+    los resultados anteriores ya no son válidos.
+  */
+  results = {
+    1: ["", "", "", ""],
+    2: ["", "", "", ""],
+    3: ["", "", "", ""]
+  };
+
+  saveData();
+  renderColorOptions();
+  renderResults();
+  renderRanking();
+}
 
 
 /* =========================================================
    RESULTADOS
 ========================================================= */
 
-const savedData =
-  JSON.parse(
-    localStorage.getItem("monopolyRace") || "null"
-  );
+function renderResults() {
 
+  const body = document.getElementById("resultsBody");
 
-/*
-  Si no existe información guardada,
-  todas las posiciones comienzan vacías.
-*/
+  body.innerHTML = "";
 
-let data =
-  savedData ||
-  [
-    ["","","",""],
-    ["","","",""],
-    ["","","",""]
-  ];
+  places.forEach((place, index) => {
 
+    const row = document.createElement("tr");
 
-/* =========================================================
-   PUNTAJES
-========================================================= */
+    const placeCell = document.createElement("td");
 
-const scores = [
+    placeCell.className = "place";
+    placeCell.textContent = place;
 
-  [10,8,5,3],
+    row.appendChild(placeCell);
 
-  [10,8,5,3],
 
-  [20,16,10,6]
+    [1, 2, 3].forEach(round => {
 
-];
+      const resultCell = document.createElement("td");
 
+      const picker = document.createElement("div");
 
-const places = [
-  "1.º",
-  "2.º",
-  "3.º",
-  "4.º"
-];
-
-
-/* =========================================================
-   CONFIGURAR COLORES
-========================================================= */
-
-function renderColorSettings(){
-
-  const container =
-    document.getElementById("availableColors");
-
-  container.innerHTML = "";
-
-
-  colorOptions.forEach(color => {
-
-    const button =
-      document.createElement("button");
-
-    button.className =
-      "setup-color " +
-      color.class;
-
-    button.title =
-      color.name;
-
-
-    if(
-      selectedColors.includes(color.id)
-    ){
-
-      button.classList.add("selected");
-
-    }
-
-
-    button.onclick = () => {
-
-      toggleColor(color.id);
-
-    };
-
-
-    container.appendChild(button);
-
-  });
-
-}
-
-
-/* =========================================================
-   CAMBIAR COLORES
-========================================================= */
-
-function toggleColor(color){
-
-  const index =
-    selectedColors.indexOf(color);
-
-
-  /*
-    Si ya está seleccionado,
-    solamente se puede quitar
-    si hay más de cuatro.
-  */
-
-  if(index !== -1){
-
-    if(selectedColors.length <= 4){
-
-      return;
-
-    }
-
-    selectedColors.splice(index,1);
-
-  }
-
-  else{
-
-    /*
-      Máximo cuatro equipos.
-    */
-
-    if(selectedColors.length >= 4){
-
-      return;
-
-    }
-
-    selectedColors.push(color);
-
-  }
-
-
-  /*
-    Guardar configuración.
-  */
-
-  localStorage.setItem(
-    "monopolyRaceColors",
-    JSON.stringify(selectedColors)
-  );
-
-
-  /*
-    Si cambiamos los colores,
-    eliminamos resultados anteriores
-    porque pertenecen a otra carrera.
-  */
-
-  data = [
-    ["","","",""],
-    ["","","",""],
-    ["","","",""]
-  ];
-
-
-  save();
-
-  renderColorSettings();
-
-  renderRounds();
-
-  renderRanking();
-
-}
-
-
-/* =========================================================
-   CREAR CÍRCULOS DE SELECCIÓN
-========================================================= */
-
-function makeColorPicker(round,place){
-
-  const container =
-    document.createElement("div");
-
-  container.className =
-    "color-picker";
-
-
-  /*
-    Círculo vacío.
-  */
-
-  const empty =
-    document.createElement("div");
-
-  empty.className =
-    "team-circle empty";
-
-
-  if(!data[round][place]){
-
-    empty.classList.add("active");
-
-  }
-
-
-  empty.onclick = () => {
-
-    data[round][place] = "";
-
-    save();
-
-    renderRounds();
-
-    renderRanking();
-
-  };
-
-
-  container.appendChild(empty);
-
-
-  /*
-    Crear los cuatro colores
-    actualmente seleccionados.
-  */
-
-  selectedColors.forEach(colorId => {
-
-    const color =
-      colorOptions.find(
-        c => c.id === colorId
-      );
-
-
-    if(!color){
-
-      return;
-
-    }
-
-
-    const circle =
-      document.createElement("div");
-
-    circle.className =
-      "team-circle " +
-      color.class;
-
-
-    if(data[round][place] === colorId){
-
-      circle.classList.add("active");
-
-    }
-
-
-    circle.title =
-      color.name;
-
-
-    circle.onclick = () => {
+      picker.className = "team-picker";
 
       /*
-        Evita que el mismo equipo
-        pueda aparecer dos veces
-        en una misma ronda.
+        Círculo vacío
       */
+      const empty = document.createElement("div");
 
-      const alreadyUsed =
-        data[round].some(
-          (team,index) =>
-            team === colorId &&
-            index !== place
-        );
+      empty.className = "team-dot empty";
+
+      empty.title = "Quitar selección";
+
+      empty.onclick = () => {
+
+        results[round][index] = "";
+
+        saveData();
+        renderResults();
+        renderRanking();
+      };
+
+      picker.appendChild(empty);
 
 
-      if(alreadyUsed){
+      /*
+        Los cuatro equipos seleccionados
+      */
+      selectedColors.forEach(colorKey => {
 
-        alert(
-          "Ese equipo ya está seleccionado en esta ronda."
-        );
+        const dot = document.createElement("div");
 
-        return;
+        dot.className = "team-dot";
 
+        dot.style.background =
+          availableColors[colorKey].color;
+
+        dot.title =
+          availableColors[colorKey].name;
+
+        if (results[round][index] === colorKey) {
+          dot.classList.add("active");
+        }
+
+        dot.onclick = () => {
+
+          assignTeam(round, index, colorKey);
+
+        };
+
+        picker.appendChild(dot);
+      });
+
+
+      resultCell.appendChild(picker);
+      row.appendChild(resultCell);
+
+
+      /*
+        PUNTOS
+      */
+      const pointsCell = document.createElement("td");
+
+      pointsCell.className = "points";
+
+      const selectedTeam =
+        results[round][index];
+
+      if (selectedTeam !== "") {
+        pointsCell.textContent =
+          points[round][index];
+      } else {
+        pointsCell.textContent = "—";
       }
 
+      row.appendChild(pointsCell);
 
-      data[round][place] =
-        colorId;
+    });
 
-
-      save();
-
-      renderRounds();
-
-      renderRanking();
-
-    };
-
-
-    container.appendChild(circle);
+    body.appendChild(row);
 
   });
-
-
-  return container;
-
 }
 
 
 /* =========================================================
-   CREAR TABLA
+   ASIGNAR EQUIPO
 ========================================================= */
 
-function renderRounds(){
+function assignTeam(round, position, colorKey) {
 
-  const tbody =
-    document.getElementById("rounds");
+  /*
+    Si el color ya estaba en otra posición
+    de ESTA MISMA ronda, lo quitamos de allí.
+  */
+  for (let i = 0; i < 4; i++) {
 
-  tbody.innerHTML = "";
+    if (
+      i !== position &&
+      results[round][i] === colorKey
+    ) {
 
-
-  for(let place = 0; place < 4; place++){
-
-    const tr =
-      document.createElement("tr");
-
-
-    /*
-      Lugar
-    */
-
-    const placeCell =
-      document.createElement("td");
-
-    placeCell.className =
-      "place";
-
-
-    if(place === 0){
-
-      placeCell.classList.add("place-1");
+      results[round][i] = "";
 
     }
-
-    if(place === 1){
-
-      placeCell.classList.add("place-2");
-
-    }
-
-    if(place === 2){
-
-      placeCell.classList.add("place-3");
-
-    }
-
-
-    placeCell.textContent =
-      places[place];
-
-
-    tr.appendChild(placeCell);
-
-
-    /*
-      Las tres rondas.
-    */
-
-    for(let round = 0; round < 3; round++){
-
-      const teamCell =
-        document.createElement("td");
-
-
-      teamCell.appendChild(
-        makeColorPicker(round,place)
-      );
-
-
-      tr.appendChild(teamCell);
-
-
-      /*
-        Puntaje
-      */
-
-      const scoreCell =
-        document.createElement("td");
-
-      scoreCell.className =
-        "points";
-
-      scoreCell.textContent =
-        scores[round][place];
-
-
-      tr.appendChild(scoreCell);
-
-    }
-
-
-    tbody.appendChild(tr);
-
   }
 
+  /*
+    Ahora ponemos el equipo en la posición nueva.
+  */
+  results[round][position] = colorKey;
+
+  saveData();
+
+  renderResults();
+  renderRanking();
 }
 
 
 /* =========================================================
-   TOTALES
+   CLASIFICACIÓN FINAL
 ========================================================= */
 
-function getTotals(){
+function renderRanking() {
 
-  const totals = {};
+  const rankingContainer =
+    document.getElementById("ranking");
 
+  rankingContainer.innerHTML = "";
 
-  selectedColors.forEach(color => {
+  if (selectedColors.length !== 4) {
+    return;
+  }
 
-    totals[color] = 0;
+  const ranking = selectedColors.map(colorKey => {
 
-  });
+    let total = 0;
 
+    [1, 2, 3].forEach(round => {
 
-  for(
-    let round = 0;
-    round < 3;
-    round++
-  ){
+      results[round].forEach((team, position) => {
 
-    for(
-      let place = 0;
-      place < 4;
-      place++
-    ){
+        if (team === colorKey) {
 
-      const team =
-        data[round][place];
-
-
-      if(team){
-
-        if(
-          totals[team] === undefined
-        ){
-
-          totals[team] = 0;
+          total += points[round][position];
 
         }
 
+      });
 
-        totals[team] +=
-          scores[round][place];
+    });
 
-      }
+    return {
+      colorKey,
+      total
+    };
 
+  });
+
+
+  ranking.sort((a, b) => {
+
+    if (b.total !== a.total) {
+      return b.total - a.total;
     }
 
-  }
+    return selectedColors.indexOf(a.colorKey) -
+           selectedColors.indexOf(b.colorKey);
+
+  });
 
 
-  return totals;
+  ranking.forEach((team, index) => {
 
-}
+    const row = document.createElement("div");
 
+    row.className = "rank-row";
 
-/* =========================================================
-   RANKING
-========================================================= */
+    const number = document.createElement("div");
 
-function renderRanking(){
+    number.className = "rank-number";
 
-  const container =
-    document.getElementById("ranking");
+    number.textContent =
+      `${index + 1}°`;
 
-  container.innerHTML = "";
+    const teamName = document.createElement("div");
 
+    teamName.className = "rank-team";
 
-  const totals =
-    getTotals();
+    teamName.style.background =
+      availableColors[team.colorKey].color;
 
+    teamName.textContent =
+      availableColors[team.colorKey].name;
 
-  const sorted =
-    Object.entries(totals)
-      .sort(
-        (a,b) => b[1] - a[1]
-      );
+    const total = document.createElement("div");
 
+    total.className = "rank-points";
 
-  sorted.forEach(
-    ([colorId,total],index) => {
+    total.textContent =
+      `${team.total} pts`;
 
-      const color =
-        colorOptions.find(
-          c => c.id === colorId
-        );
+    row.appendChild(number);
+    row.appendChild(teamName);
+    row.appendChild(total);
 
+    rankingContainer.appendChild(row);
 
-      if(!color){
-
-        return;
-
-      }
-
-
-      const row =
-        document.createElement("div");
-
-      row.className =
-        "rank-row";
-
-
-      /*
-        Posición
-      */
-
-      const position =
-        document.createElement("div");
-
-      position.className =
-        "rank-position";
-
-      position.textContent =
-        index + 1;
-
-
-      /*
-        Color
-      */
-
-      const circle =
-        document.createElement("div");
-
-      circle.className =
-        "rank-color " +
-        color.class;
-
-
-      /*
-        Nombre del equipo
-        Solo se muestra aquí como
-        referencia administrativa.
-      */
-
-      const team =
-        document.createElement("div");
-
-      team.className =
-        "rank-team";
-
-      team.textContent =
-        "Equipo";
-
-
-      /*
-        Puntaje
-      */
-
-      const score =
-        document.createElement("div");
-
-      score.className =
-        "rank-score";
-
-      score.innerHTML =
-        total +
-        "<small>PTS</small>";
-
-
-      row.appendChild(position);
-
-      row.appendChild(circle);
-
-      row.appendChild(team);
-
-      row.appendChild(score);
-
-
-      container.appendChild(row);
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   GUARDAR RESULTADOS
-========================================================= */
-
-function save(){
-
-  localStorage.setItem(
-    "monopolyRace",
-    JSON.stringify(data)
-  );
+  });
 
 }
 
@@ -1349,43 +871,18 @@ function save(){
    REINICIAR RESULTADOS
 ========================================================= */
 
-function resetGame(){
+function resetResults() {
 
-  if(
-    !confirm(
-      "¿Quieres borrar todos los resultados?"
-    )
-  ){
+  results = {
+    1: ["", "", "", ""],
+    2: ["", "", "", ""],
+    3: ["", "", "", ""]
+  };
 
-    return;
+  saveData();
 
-  }
-
-
-  /*
-    IMPORTANTE:
-    Todos los puestos quedan
-    completamente vacíos.
-  */
-
-  data = [
-
-    ["","","",""],
-
-    ["","","",""],
-
-    ["","","",""]
-
-  ];
-
-
-  save();
-
-
-  renderRounds();
-
+  renderResults();
   renderRanking();
-
 }
 
 
@@ -1393,10 +890,8 @@ function resetGame(){
    INICIAR
 ========================================================= */
 
-renderColorSettings();
-
-renderRounds();
-
+renderColorOptions();
+renderResults();
 renderRanking();
 
 </script>
