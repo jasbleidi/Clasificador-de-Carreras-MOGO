@@ -1,582 +1,409 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <title>Monopoly GO - Carrera</title>
 
 <style>
-  *{
-    box-sizing:border-box;
-  }
 
-  :root{
-    --pink:#ff4f9a;
-    --purple:#7b4cff;
-    --yellow:#ffd83d;
-    --red:#ff4d5a;
-    --blue:#3d9cff;
-    --green:#42c978;
-    --dark:#20202a;
-    --light:#f6f5fb;
-  }
+*{
+  box-sizing:border-box;
+}
+
+:root{
+  --monopoly-red:#ed1c24;
+  --monopoly-dark:#171717;
+  --monopoly-gold:#f5c542;
+  --bg:#f4f1e8;
+
+  /* Colores de los equipos */
+  --team-red:#e53935;
+  --team-blue:#1976d2;
+  --team-yellow:#fbc02d;
+  --team-green:#43a047;
+}
+
+body{
+  margin:0;
+  padding:10px 8px 25px;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--monopoly-dark);
+}
+
+.app{
+  width:100%;
+  max-width:500px;
+  margin:auto;
+}
+
+/* =========================
+   ENCABEZADO
+========================= */
+
+.header{
+  background:var(--monopoly-red);
+  color:white;
+  border:4px solid var(--monopoly-dark);
+  border-radius:12px;
+  padding:13px 12px;
+  text-align:center;
+  box-shadow:4px 4px 0 var(--monopoly-dark);
+  margin-bottom:14px;
+}
+
+.logo{
+  font-size:28px;
+  line-height:1;
+  margin-bottom:4px;
+}
+
+h1{
+  margin:0;
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:.2px;
+}
+
+.subtitle{
+  font-size:11px;
+  margin-top:5px;
+  opacity:.95;
+}
+
+/* =========================
+   TARJETAS
+========================= */
+
+.card{
+  background:white;
+  border:2px solid var(--monopoly-dark);
+  border-radius:12px;
+  padding:11px;
+  margin-bottom:12px;
+  box-shadow:3px 3px 0 rgba(0,0,0,.18);
+}
+
+.title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:9px;
+}
+
+.title h2{
+  margin:0;
+  font-size:16px;
+  font-weight:900;
+}
+
+.badge{
+  background:var(--monopoly-gold);
+  color:#171717;
+  border:1.5px solid #171717;
+  border-radius:7px;
+  padding:3px 7px;
+  font-size:9px;
+  font-weight:900;
+}
+
+/* =========================
+   RONDAS
+========================= */
+
+.round{
+  border:1.5px solid #d8d4c8;
+  border-radius:9px;
+  padding:8px;
+  margin-bottom:8px;
+  background:#faf9f4;
+}
+
+.round:last-child{
+  margin-bottom:0;
+}
+
+.round-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:6px;
+}
+
+.round-name{
+  font-size:13px;
+  font-weight:900;
+}
+
+.round-points{
+  font-size:9px;
+  font-weight:700;
+  color:#666;
+}
+
+/* =========================
+   FILAS
+========================= */
+
+.position{
+  display:grid;
+  grid-template-columns:40px minmax(0,1fr) 38px;
+  align-items:center;
+  gap:7px;
+
+  background:white;
+  border:1px solid #e5e2d9;
+  border-radius:8px;
+
+  padding:5px;
+  margin-top:5px;
+
+  min-height:42px;
+}
+
+.place{
+  font-size:11px;
+  font-weight:900;
+  text-align:center;
+}
+
+/* =========================
+   SELECTOR SOLO COLOR
+========================= */
+
+.color-select{
+  width:100%;
+  height:30px;
+  border:2px solid #222;
+  border-radius:7px;
+
+  /* Oculta el texto */
+  color:transparent;
+  font-size:0;
+
+  cursor:pointer;
+  padding:0;
+
+  appearance:none;
+  -webkit-appearance:none;
+}
+
+/* Cada color */
+
+.color-red{
+  background:var(--team-red);
+}
+
+.color-blue{
+  background:var(--team-blue);
+}
+
+.color-yellow{
+  background:var(--team-yellow);
+}
+
+.color-green{
+  background:var(--team-green);
+}
+
+.color-empty{
+  background:#f0eee8;
+  border:2px dashed #aaa;
+}
+
+/*
+  Para poder seleccionar los colores,
+  el menú conserva las opciones pero
+  el campo visible solo muestra el color.
+*/
+
+.color-select option{
+  color:#111;
+  font-size:13px;
+  background:white;
+}
+
+/* =========================
+   PUNTAJE
+========================= */
+
+.points{
+  background:var(--monopoly-dark);
+  color:white;
+  border-radius:7px;
+  text-align:center;
+  padding:7px 2px;
+  font-size:11px;
+  font-weight:900;
+}
+
+/* =========================
+   LEYENDA
+========================= */
+
+.legend{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:9px;
+}
+
+.legend-color{
+  width:15px;
+  height:15px;
+  border-radius:4px;
+  border:1.5px solid #222;
+}
+
+.legend-item{
+  display:flex;
+  align-items:center;
+}
+
+/* =========================
+   CLASIFICACIÓN
+========================= */
+
+.ranking{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.rank{
+  display:grid;
+  grid-template-columns:32px 22px minmax(0,1fr) 48px;
+  align-items:center;
+  gap:6px;
+
+  min-height:42px;
+  padding:5px 7px;
+
+  background:#faf9f4;
+  border:1px solid #dedbd2;
+  border-radius:8px;
+}
+
+.rank:first-child{
+  background:#fff7d6;
+  border:2px solid var(--monopoly-gold);
+}
+
+.rank-number{
+  font-weight:900;
+  text-align:center;
+  font-size:13px;
+}
+
+.rank-color{
+  width:18px;
+  height:18px;
+  border-radius:4px;
+  border:1.5px solid #222;
+}
+
+.rank-name{
+  font-size:12px;
+  font-weight:900;
+}
+
+.rank-score{
+  font-size:16px;
+  font-weight:900;
+  text-align:right;
+}
+
+.rank-score small{
+  display:block;
+  font-size:7px;
+  color:#777;
+}
+
+/* =========================
+   BOTÓN
+========================= */
+
+.reset{
+  width:100%;
+  border:2px solid var(--monopoly-dark);
+  border-radius:9px;
+
+  background:white;
+  color:var(--monopoly-red);
+
+  padding:10px;
+  font-size:12px;
+  font-weight:900;
+
+  box-shadow:3px 3px 0 var(--monopoly-dark);
+  cursor:pointer;
+}
+
+.reset:active{
+  transform:translate(2px,2px);
+  box-shadow:1px 1px 0 var(--monopoly-dark);
+}
+
+/* =========================
+   MÓVILES MUY PEQUEÑOS
+========================= */
+
+@media(max-width:350px){
 
   body{
-    margin:0;
-    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    background:
-      radial-gradient(circle at 10% 0%, rgba(255,79,154,.22), transparent 28%),
-      radial-gradient(circle at 95% 5%, rgba(123,76,255,.22), transparent 28%),
-      linear-gradient(180deg,#f8f7ff 0%,#eeeef8 100%);
-    color:var(--dark);
-    min-height:100vh;
-    padding:12px 10px 35px;
+    padding:7px 5px 20px;
   }
 
-  .app{
-    width:100%;
-    max-width:620px;
-    margin:auto;
-  }
-
-  /* =========================
-     ENCABEZADO
-  ========================= */
-
-  .hero{
-    position:relative;
-    overflow:hidden;
-    background:
-      linear-gradient(135deg,#ff4f9a 0%,#8a4dff 55%,#4d72ff 100%);
-    color:white;
-    border-radius:24px;
-    padding:22px 18px 20px;
-    margin-bottom:15px;
-    box-shadow:0 8px 25px rgba(91,65,180,.28);
-  }
-
-  .hero::before{
-    content:"";
-    position:absolute;
-    width:130px;
-    height:130px;
-    border-radius:50%;
-    background:rgba(255,255,255,.12);
-    top:-55px;
-    right:-35px;
-  }
-
-  .hero::after{
-    content:"";
-    position:absolute;
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    background:rgba(255,255,255,.08);
-    bottom:-40px;
-    left:-25px;
-  }
-
-  .hero-content{
-    position:relative;
-    z-index:1;
-    text-align:center;
-  }
-
-  .dice{
-    font-size:35px;
-    margin-bottom:2px;
-    filter:drop-shadow(0 3px 2px rgba(0,0,0,.15));
+  .header{
+    padding:11px 8px;
   }
 
   h1{
-    font-size:25px;
-    line-height:1.1;
-    margin:3px 0 7px;
-    font-weight:900;
-    letter-spacing:-.5px;
+    font-size:19px;
   }
-
-  .sub{
-    margin:0;
-    font-size:13px;
-    line-height:1.4;
-    opacity:.94;
-  }
-
-  /* =========================
-     TARJETAS
-  ========================= */
 
   .card{
-    background:rgba(255,255,255,.96);
-    border-radius:20px;
-    padding:15px;
-    margin-bottom:14px;
-    box-shadow:0 4px 16px rgba(40,35,80,.09);
-    border:1px solid rgba(255,255,255,.8);
-  }
-
-  .card-title{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:8px;
-    margin-bottom:12px;
-  }
-
-  .card-title h2{
-    margin:0;
-    font-size:17px;
-    font-weight:900;
-  }
-
-  .badge{
-    background:#f0edff;
-    color:var(--purple);
-    font-size:11px;
-    font-weight:800;
-    padding:5px 9px;
-    border-radius:20px;
-    white-space:nowrap;
-  }
-
-  /* =========================
-     RONDAS
-  ========================= */
-
-  .round-card{
-    border-radius:17px;
-    padding:12px;
-    margin-bottom:11px;
-    border:2px solid transparent;
-    background:#faf9ff;
-  }
-
-  .round-card:last-child{
-    margin-bottom:0;
-  }
-
-  .round-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:9px;
-  }
-
-  .round-name{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-weight:900;
-    font-size:15px;
-  }
-
-  .round-icon{
-    width:30px;
-    height:30px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:9px;
-    color:white;
-    font-size:15px;
-    box-shadow:0 3px 7px rgba(0,0,0,.12);
-  }
-
-  .round-1 .round-icon{
-    background:linear-gradient(135deg,#ff4f9a,#ff739f);
-  }
-
-  .round-2 .round-icon{
-    background:linear-gradient(135deg,#7b4cff,#a274ff);
-  }
-
-  .round-3 .round-icon{
-    background:linear-gradient(135deg,#ffbd25,#ff8d29);
-  }
-
-  .round-points{
-    font-size:11px;
-    color:#777;
-    font-weight:700;
-  }
-
-  .position-row{
-    display:grid;
-    grid-template-columns:48px minmax(0,1fr) 43px;
-    align-items:center;
-    gap:8px;
-    background:white;
-    padding:7px;
-    margin-top:6px;
-    border-radius:12px;
-    border:1px solid #eceaf3;
+    padding:9px;
   }
 
   .position{
-    font-size:12px;
-    font-weight:900;
-    text-align:center;
-    padding:6px 3px;
-    border-radius:8px;
+    grid-template-columns:36px minmax(0,1fr) 35px;
+    gap:5px;
   }
 
-  .p1{
-    background:#fff0a8;
-    color:#806500;
+  .round{
+    padding:7px;
   }
-
-  .p2{
-    background:#ececf1;
-    color:#555;
-  }
-
-  .p3{
-    background:#ffe0c4;
-    color:#985316;
-  }
-
-  .p4{
-    background:#f0f0f4;
-    color:#777;
-  }
-
-  /* =========================
-     SELECTOR
-  ========================= */
-
-  .team-select{
-    width:100%;
-    min-width:0;
-    border:2px solid #e5e2ee;
-    border-radius:10px;
-    padding:9px 30px 9px 10px;
-    background:#fff;
-    color:#222;
-    font-size:13px;
-    font-weight:800;
-    outline:none;
-    appearance:auto;
-    cursor:pointer;
-  }
-
-  .team-select:focus{
-    border-color:var(--purple);
-    box-shadow:0 0 0 3px rgba(123,76,255,.12);
-  }
-
-  .team-select.rosado{
-    border-color:#ff7bb0;
-    background:#fff2f7;
-  }
-
-  .team-select.morado{
-    border-color:#a487ff;
-    background:#f4f1ff;
-  }
-
-  .team-select.amarillo{
-    border-color:#f3cf39;
-    background:#fffbea;
-  }
-
-  .team-select.rojo{
-    border-color:#ff7c83;
-    background:#fff1f2;
-  }
-
-  .score-badge{
-    text-align:center;
-    font-size:14px;
-    font-weight:900;
-    padding:7px 3px;
-    border-radius:9px;
-    background:#f0edff;
-    color:var(--purple);
-  }
-
-  /* =========================
-     LEYENDA
-  ========================= */
 
   .legend{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:6px;
-    margin-top:12px;
-  }
-
-  .legend-item{
-    text-align:center;
-    padding:7px 3px;
-    border-radius:10px;
-    font-size:10px;
-    font-weight:800;
-  }
-
-  .legend-item span{
-    display:block;
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    margin:0 auto 3px;
-  }
-
-  .legend-pink{
-    background:#fff0f6;
-    color:#d82f78;
-  }
-
-  .legend-pink span{
-    background:var(--pink);
-  }
-
-  .legend-purple{
-    background:#f1edff;
-    color:#6340d8;
-  }
-
-  .legend-purple span{
-    background:var(--purple);
-  }
-
-  .legend-yellow{
-    background:#fff9dc;
-    color:#947500;
-  }
-
-  .legend-yellow span{
-    background:var(--yellow);
-  }
-
-  .legend-red{
-    background:#fff0f1;
-    color:#c8323d;
-  }
-
-  .legend-red span{
-    background:var(--red);
-  }
-
-  .note{
-    background:#f7f6fb;
-    border-radius:12px;
-    padding:10px;
-    margin-top:11px;
-    font-size:11px;
-    line-height:1.5;
-    color:#666;
-    text-align:center;
-  }
-
-  /* =========================
-     CLASIFICACIÓN
-  ========================= */
-
-  .ranking{
-    display:flex;
-    flex-direction:column;
     gap:8px;
   }
 
-  .rank-row{
-    display:grid;
-    grid-template-columns:43px minmax(0,1fr) auto;
-    align-items:center;
-    gap:10px;
-    padding:11px;
-    border-radius:14px;
-    background:#f8f7fc;
-    border:1px solid #ebe9f2;
-  }
+}
 
-  .rank-number{
-    width:36px;
-    height:36px;
-    border-radius:11px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:900;
-    font-size:13px;
-    background:#ecebf1;
-    color:#555;
-  }
 
-  .rank-row:first-child{
-    background:linear-gradient(135deg,#fff8c9,#fffdf0);
-    border:2px solid #f5d84d;
-    box-shadow:0 4px 12px rgba(240,195,40,.15);
-  }
+/* =========================
+   COLORES PARA RANKING
+========================= */
 
-  .rank-row:first-child .rank-number{
-    background:linear-gradient(135deg,#ffd83d,#ffb800);
-    color:white;
-    font-size:17px;
-  }
+.red{
+  background:var(--team-red);
+}
 
-  .team-info{
-    min-width:0;
-  }
+.blue{
+  background:var(--team-blue);
+}
 
-  .team-name{
-    font-weight:900;
-    font-size:14px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
+.yellow{
+  background:var(--team-yellow);
+}
 
-  .team-bar{
-    height:5px;
-    background:#e9e7ef;
-    border-radius:10px;
-    overflow:hidden;
-    margin-top:6px;
-  }
+.green{
+  background:var(--team-green);
+}
 
-  .team-bar-fill{
-    height:100%;
-    border-radius:10px;
-  }
-
-  .team-score{
-    font-size:20px;
-    font-weight:950;
-    color:#282536;
-    text-align:right;
-  }
-
-  .pts{
-    display:block;
-    font-size:9px;
-    color:#777;
-    font-weight:700;
-  }
-
-  /* =========================
-     BOTÓN
-  ========================= */
-
-  .reset{
-    width:100%;
-    border:0;
-    border-radius:14px;
-    padding:13px;
-    margin-top:2px;
-    background:white;
-    color:#c73540;
-    border:1px solid #ffd4d7;
-    font-size:13px;
-    font-weight:800;
-    cursor:pointer;
-    box-shadow:0 3px 10px rgba(50,40,80,.06);
-  }
-
-  .reset:active{
-    transform:scale(.98);
-  }
-
-  /* =========================
-     COLORES DE EQUIPO
-  ========================= */
-
-  .team-dot{
-    display:inline-block;
-    width:9px;
-    height:9px;
-    border-radius:50%;
-    margin-right:5px;
-  }
-
-  .dot-rosado{background:var(--pink);}
-  .dot-morado{background:var(--purple);}
-  .dot-amarillo{background:var(--yellow);}
-  .dot-rojo{background:var(--red);}
-
-  /* =========================
-     CELULAR
-  ========================= */
-
-  @media(max-width:430px){
-
-    body{
-      padding:8px 7px 28px;
-    }
-
-    .hero{
-      border-radius:20px;
-      padding:19px 14px 18px;
-    }
-
-    h1{
-      font-size:22px;
-    }
-
-    .sub{
-      font-size:12px;
-    }
-
-    .card{
-      padding:12px;
-      border-radius:17px;
-    }
-
-    .card-title h2{
-      font-size:16px;
-    }
-
-    .round-card{
-      padding:10px;
-    }
-
-    .position-row{
-      grid-template-columns:43px minmax(0,1fr) 40px;
-      gap:6px;
-      padding:6px;
-    }
-
-    .team-select{
-      font-size:12px;
-      padding:9px 4px 9px 8px;
-    }
-
-    .legend{
-      grid-template-columns:repeat(2,1fr);
-    }
-
-    .rank-row{
-      grid-template-columns:39px minmax(0,1fr) auto;
-      gap:8px;
-      padding:9px;
-    }
-
-    .team-score{
-      font-size:18px;
-    }
-  }
-
-  @media(max-width:340px){
-
-    .position-row{
-      grid-template-columns:39px minmax(0,1fr) 36px;
-    }
-
-    .position{
-      font-size:10px;
-    }
-
-    .team-select{
-      font-size:11px;
-    }
-
-    .score-badge{
-      font-size:12px;
-    }
-  }
 </style>
 </head>
 
@@ -585,39 +412,44 @@
 <div class="app">
 
   <!-- ENCABEZADO -->
-  <div class="hero">
-    <div class="hero-content">
-      <div class="dice">🎲</div>
-      <h1>🏁 Carrera Monopoly GO</h1>
-      <p class="sub">
-        Selecciona el equipo que quedó en cada posición
-        y la clasificación se actualizará automáticamente.
-      </p>
+
+  <div class="header">
+
+    <div class="logo">🎩</div>
+
+    <h1>CARRERA MONOPOLY GO</h1>
+
+    <div class="subtitle">
+      Selecciona el color que ocupó cada posición
     </div>
+
   </div>
 
 
   <!-- RESULTADOS -->
+
   <div class="card">
 
-    <div class="card-title">
-      <h2>🏎️ Resultados de la carrera</h2>
-      <div class="badge">AUTO</div>
+    <div class="title">
+      <h2>🏁 Resultados</h2>
+      <div class="badge">PUNTOS</div>
     </div>
 
 
     <!-- RONDA 1 -->
-    <div class="round-card round-1">
+
+    <div class="round">
 
       <div class="round-header">
+
         <div class="round-name">
-          <div class="round-icon">1</div>
           Ronda 1
         </div>
 
         <div class="round-points">
-          Máx. 10 pts
+          10 · 8 · 5 · 3
         </div>
+
       </div>
 
       <div id="round1"></div>
@@ -626,17 +458,19 @@
 
 
     <!-- RONDA 2 -->
-    <div class="round-card round-2">
+
+    <div class="round">
 
       <div class="round-header">
+
         <div class="round-name">
-          <div class="round-icon">2</div>
           Ronda 2
         </div>
 
         <div class="round-points">
-          Máx. 10 pts
+          10 · 8 · 5 · 3
         </div>
+
       </div>
 
       <div id="round2"></div>
@@ -645,17 +479,19 @@
 
 
     <!-- RONDA 3 -->
-    <div class="round-card round-3">
+
+    <div class="round">
 
       <div class="round-header">
+
         <div class="round-name">
-          <div class="round-icon">3</div>
           Ronda 3
         </div>
 
         <div class="round-points">
-          ¡Puntaje doble!
+          DOBLE · 20 · 16 · 10 · 6
         </div>
+
       </div>
 
       <div id="round3"></div>
@@ -664,46 +500,42 @@
 
 
     <!-- LEYENDA -->
+
     <div class="legend">
 
-      <div class="legend-item legend-pink">
-        <span></span>
-        Rosado
+      <div class="legend-item">
+        <div class="legend-color red"></div>
       </div>
 
-      <div class="legend-item legend-purple">
-        <span></span>
-        Morado
+      <div class="legend-item">
+        <div class="legend-color blue"></div>
       </div>
 
-      <div class="legend-item legend-yellow">
-        <span></span>
-        Amarillo
+      <div class="legend-item">
+        <div class="legend-color yellow"></div>
       </div>
 
-      <div class="legend-item legend-red">
-        <span></span>
-        Rojo
+      <div class="legend-item">
+        <div class="legend-color green"></div>
       </div>
 
-    </div>
-
-
-    <div class="note">
-      Rondas 1 y 2: 🥇 10 · 🥈 8 · 🥉 5 · 4.º 3
-      <br>
-      Ronda 3: 🥇 20 · 🥈 16 · 🥉 10 · 4.º 6
     </div>
 
   </div>
 
 
   <!-- CLASIFICACIÓN -->
+
   <div class="card">
 
-    <div class="card-title">
-      <h2>🏆 Clasificación final</h2>
-      <div class="badge">EN VIVO</div>
+    <div class="title">
+
+      <h2>🏆 Clasificación</h2>
+
+      <div class="badge">
+        TOTAL
+      </div>
+
     </div>
 
     <div id="ranking" class="ranking"></div>
@@ -712,8 +544,9 @@
 
 
   <!-- REINICIAR -->
+
   <button class="reset" onclick="resetGame()">
-    🗑️ Reiniciar resultados
+    ↻ Reiniciar resultados
   </button>
 
 </div>
@@ -721,14 +554,33 @@
 
 <script>
 
-const teams = ["Rosado","Morado","Amarillo","Rojo"];
+/* =========================
+   EQUIPOS
+========================= */
+
+const teams = [
+  "Rojo",
+  "Azul",
+  "Amarillo",
+  "Verde"
+];
+
+
+/* =========================
+   POSICIONES
+========================= */
 
 const places = [
-  "🥇 1.º",
-  "🥈 2.º",
-  "🥉 3.º",
+  "1.º",
+  "2.º",
+  "3.º",
   "4.º"
 ];
+
+
+/* =========================
+   PUNTAJES
+========================= */
 
 const scores = [
   [10,8,5,3],
@@ -738,30 +590,39 @@ const scores = [
 
 
 /* =========================
-   DATOS GUARDADOS
+   DATOS
 ========================= */
 
-const saved = JSON.parse(
-  localStorage.getItem("monopolyRace") || "null"
-);
+/*
+  Importante:
+  Si no existe información guardada,
+  todas las posiciones comienzan vacías.
+*/
+
+const saved =
+  JSON.parse(
+    localStorage.getItem("monopolyRace") || "null"
+  );
+
 
 const data = saved || [
-  ["Rosado","Morado","Amarillo","Rojo"],
-  ["Amarillo","Rosado","Morado","Rojo"],
-  ["Amarillo","Rosado","Morado","Rojo"]
+  ["","","",""],
+  ["","","",""],
+  ["","","",""]
 ];
 
 
 /* =========================
-   CLASE DEL EQUIPO
+   CLASE DE COLOR
 ========================= */
 
-function teamClass(team){
+function colorClass(team){
 
-  return team
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"");
+  if(!team){
+    return "color-empty";
+  }
+
+  return "color-" + team.toLowerCase();
 
 }
 
@@ -772,17 +633,45 @@ function teamClass(team){
 
 function makeSelect(round, place){
 
-  const select = document.createElement("select");
+  const select =
+    document.createElement("select");
 
   select.className =
-    "team-select " +
-    teamClass(data[round][place]);
+    "color-select " +
+    colorClass(data[round][place]);
+
+
+  /*
+    Primera opción vacía.
+    Sirve para que al reiniciar
+    no aparezca ningún carácter.
+  */
+
+  const empty =
+    document.createElement("option");
+
+  empty.value = "";
+  empty.textContent = "";
+  empty.selected =
+    data[round][place] === "";
+
+  select.appendChild(empty);
+
 
   teams.forEach(team => {
 
-    const option = document.createElement("option");
+    const option =
+      document.createElement("option");
 
     option.value = team;
+
+    /*
+      El texto existe internamente
+      para que el selector funcione,
+      pero el campo visible
+      solamente muestra el color.
+    */
+
     option.textContent = team;
 
     if(data[round][place] === team){
@@ -796,13 +685,15 @@ function makeSelect(round, place){
 
   select.addEventListener("change", () => {
 
-    data[round][place] = select.value;
+    data[round][place] =
+      select.value;
 
     select.className =
-      "team-select " +
-      teamClass(select.value);
+      "color-select " +
+      colorClass(select.value);
 
     save();
+
     renderRanking();
 
   });
@@ -814,52 +705,58 @@ function makeSelect(round, place){
 
 
 /* =========================
-   CREAR FILAS DE RONDA
+   CREAR RONDA
 ========================= */
 
 function renderRound(round){
 
   const container =
-    document.getElementById("round" + (round + 1));
+    document.getElementById(
+      "round" + (round + 1)
+    );
 
   container.innerHTML = "";
 
+
   for(let place = 0; place < 4; place++){
 
-    const row = document.createElement("div");
+    const row =
+      document.createElement("div");
 
-    row.className = "position-row";
+    row.className = "position";
 
 
     /* POSICIÓN */
 
-    const position = document.createElement("div");
+    const placeElement =
+      document.createElement("div");
 
-    position.className =
-      "position p" + (place + 1);
+    placeElement.className = "place";
 
-    position.textContent = places[place];
+    placeElement.textContent =
+      places[place];
 
-    row.appendChild(position);
+    row.appendChild(placeElement);
 
 
-    /* SELECTOR */
+    /* COLOR */
 
     row.appendChild(
       makeSelect(round,place)
     );
 
 
-    /* PUNTAJE */
+    /* PUNTOS */
 
-    const score = document.createElement("div");
+    const points =
+      document.createElement("div");
 
-    score.className = "score-badge";
+    points.className = "points";
 
-    score.textContent =
+    points.textContent =
       "+" + scores[round][place];
 
-    row.appendChild(score);
+    row.appendChild(points);
 
 
     container.appendChild(row);
@@ -870,7 +767,7 @@ function renderRound(round){
 
 
 /* =========================
-   CALCULAR TOTALES
+   TOTALES
 ========================= */
 
 function getTotals(){
@@ -886,8 +783,18 @@ function getTotals(){
 
     for(let place = 0; place < 4; place++){
 
-      totals[data[round][place]]
-        += scores[round][place];
+      const team =
+        data[round][place];
+
+      /*
+        Ignora las posiciones
+        que todavía están vacías.
+      */
+
+      if(team){
+        totals[team] +=
+          scores[round][place];
+      }
 
     }
 
@@ -904,11 +811,27 @@ function getTotals(){
 
 function renderRanking(){
 
-  const totals = getTotals();
+  const totals =
+    getTotals();
+
 
   const sorted =
     Object.entries(totals)
-      .sort((a,b) => b[1] - a[1]);
+      .sort((a,b) => {
+
+        /*
+          En caso de empate,
+          conserva un orden estable.
+        */
+
+        if(b[1] !== a[1]){
+          return b[1] - a[1];
+        }
+
+        return teams.indexOf(a[0])
+             - teams.indexOf(b[0]);
+
+      });
 
 
   const ranking =
@@ -917,87 +840,46 @@ function renderRanking(){
   ranking.innerHTML = "";
 
 
-  const maxScore =
-    sorted[0] ? sorted[0][1] : 1;
-
-
-  sorted.forEach(([team,total], index) => {
+  sorted.forEach(([team,total],index) => {
 
     const row =
       document.createElement("div");
 
-    row.className = "rank-row";
+    row.className = "rank";
 
 
     /* POSICIÓN */
 
-    const rank =
+    const number =
       document.createElement("div");
 
-    rank.className = "rank-number";
+    number.className =
+      "rank-number";
 
-    rank.textContent =
-      index === 0 ? "👑" : index + 1;
+    number.textContent =
+      index + 1;
 
 
-    /* INFORMACIÓN DEL EQUIPO */
+    /* COLOR */
 
-    const info =
+    const color =
       document.createElement("div");
 
-    info.className = "team-info";
+    color.className =
+      "rank-color " +
+      team.toLowerCase();
 
+
+    /* NOMBRE */
 
     const name =
       document.createElement("div");
 
-    name.className = "team-name";
+    name.className =
+      "rank-name";
 
-    const dot =
-      document.createElement("span");
-
-    dot.className =
-      "team-dot dot-" + teamClass(team);
-
-    name.appendChild(dot);
-
-    name.appendChild(
-      document.createTextNode(team)
-    );
-
-
-    /* BARRA */
-
-    const bar =
-      document.createElement("div");
-
-    bar.className = "team-bar";
-
-
-    const fill =
-      document.createElement("div");
-
-    fill.className = "team-bar-fill";
-
-    fill.style.width =
-      ((total / maxScore) * 100) + "%";
-
-
-    const colors = {
-      Rosado:"#ff4f9a",
-      Morado:"#7b4cff",
-      Amarillo:"#ffd83d",
-      Rojo:"#ff4d5a"
-    };
-
-    fill.style.background =
-      colors[team];
-
-
-    bar.appendChild(fill);
-
-    info.appendChild(name);
-    info.appendChild(bar);
+    name.textContent =
+      team;
 
 
     /* PUNTAJE */
@@ -1005,22 +887,17 @@ function renderRanking(){
     const score =
       document.createElement("div");
 
-    score.className = "team-score";
+    score.className =
+      "rank-score";
 
-    score.textContent = total;
-
-    const pts =
-      document.createElement("span");
-
-    pts.className = "pts";
-
-    pts.textContent = "PUNTOS";
-
-    score.appendChild(pts);
+    score.innerHTML =
+      total +
+      '<small>PTS</small>';
 
 
-    row.appendChild(rank);
-    row.appendChild(info);
+    row.appendChild(number);
+    row.appendChild(color);
+    row.appendChild(name);
     row.appendChild(score);
 
 
@@ -1053,13 +930,37 @@ function resetGame(){
 
   if(
     confirm(
-      "¿Quieres borrar todos los resultados y empezar de nuevo?"
+      "¿Quieres borrar todos los resultados?"
     )
   ){
 
-    localStorage.removeItem("monopolyRace");
+    /*
+      Dejamos absolutamente
+      todas las posiciones vacías.
+    */
 
-    location.reload();
+    for(let round = 0; round < 3; round++){
+
+      for(let place = 0; place < 4; place++){
+
+        data[round][place] = "";
+
+      }
+
+    }
+
+    save();
+
+    /*
+      Volvemos a pintar los selectores
+      completamente vacíos.
+    */
+
+    renderRound(0);
+    renderRound(1);
+    renderRound(2);
+
+    renderRanking();
 
   }
 
@@ -1067,7 +968,7 @@ function resetGame(){
 
 
 /* =========================
-   INICIAR
+   INICIO
 ========================= */
 
 renderRound(0);
