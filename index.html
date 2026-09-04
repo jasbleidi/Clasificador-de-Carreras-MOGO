@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,14 +8,8 @@
 <style>
 :root {
   --red: #e53935;
-  --dark-red: #b71c1c;
-  --cream: #fffaf0;
-  --cream-2: #fff4dc;
-  --brown: #6d4c41;
   --text: #33251f;
   --muted: #806f66;
-  --white: #ffffff;
-  --gold: #f5c542;
   --shadow: 0 8px 24px rgba(91, 53, 35, .12);
 }
 
@@ -99,7 +92,7 @@ body {
   font-size: 13px;
 }
 
-/* ---------- COLOR CONFIG ---------- */
+/* ---------- COLORES ---------- */
 
 .color-options {
   display: flex;
@@ -167,7 +160,7 @@ body {
   text-align: center;
 }
 
-/* ---------- TABLE ---------- */
+/* ---------- TABLA ---------- */
 
 .table-card {
   overflow: hidden;
@@ -225,64 +218,87 @@ tbody td:last-child {
 .place {
   font-size: 15px;
   font-weight: 900;
-  width: 65px;
+  width: 55px;
 }
 
-/* ---------- ROUND HEADER ---------- */
+/* ---------- DESPLEGABLE ---------- */
 
-.round-header {
-  text-align: center;
-}
-
-/* ---------- TEAM PICKER ---------- */
-
-.team-picker {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  min-height: 38px;
-}
-
-.team-dot {
-  width: 29px;
-  height: 29px;
-  border-radius: 50%;
-  border: 3px solid white;
-  box-shadow: 0 2px 5px rgba(0,0,0,.22);
+.team-select {
+  width: 100%;
+  max-width: 145px;
+  height: 38px;
+  padding: 0 9px;
+  border: 2px solid #e3d5c8;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 800;
   cursor: pointer;
-  transition: .15s ease;
-  flex-shrink: 0;
+  outline: none;
 }
 
-.team-dot:hover {
-  transform: scale(1.12);
+.team-select:focus {
+  border-color: #c92327;
+  box-shadow: 0 0 0 2px rgba(201,35,39,.10);
 }
 
-.team-dot.empty {
-  background: #f1e9df;
-  border-color: #d8cabc;
-  position: relative;
+/* Colorea el fondo de la opción seleccionada */
+.team-select.selected-red {
+  background: #e53935;
+  color: white;
+  border-color: #e53935;
 }
 
-.team-dot.empty::after {
-  content: "";
-  width: 9px;
-  height: 9px;
-  border: 2px solid #bca99b;
-  border-radius: 50%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+.team-select.selected-pink {
+  background: #ec407a;
+  color: white;
+  border-color: #ec407a;
 }
 
-.team-dot.active {
-  transform: scale(1.12);
-  box-shadow: 0 0 0 2px var(--text);
+.team-select.selected-yellow {
+  background: #fbc02d;
+  color: #33251f;
+  border-color: #fbc02d;
 }
 
-/* ---------- FINAL RANKING ---------- */
+.team-select.selected-green {
+  background: #43a047;
+  color: white;
+  border-color: #43a047;
+}
+
+.team-select.selected-blue {
+  background: #1e88e5;
+  color: white;
+  border-color: #1e88e5;
+}
+
+.team-select.selected-purple {
+  background: #8e44ad;
+  color: white;
+  border-color: #8e44ad;
+}
+
+.team-select.selected-orange {
+  background: #fb8c00;
+  color: white;
+  border-color: #fb8c00;
+}
+
+.team-select.selected-brown {
+  background: #795548;
+  color: white;
+  border-color: #795548;
+}
+
+.team-select.selected-lightblue {
+  background: #29b6f6;
+  color: white;
+  border-color: #29b6f6;
+}
+
+/* ---------- CLASIFICACIÓN ---------- */
 
 .ranking {
   display: flex;
@@ -329,7 +345,7 @@ tbody td:last-child {
   font-weight: 900;
 }
 
-/* ---------- BUTTON ---------- */
+/* ---------- BOTÓN ---------- */
 
 .reset-button {
   width: 100%;
@@ -350,7 +366,7 @@ tbody td:last-child {
   transform: translateY(-1px);
 }
 
-/* ---------- MOBILE ---------- */
+/* ---------- CELULAR ---------- */
 
 @media (max-width: 600px) {
 
@@ -397,7 +413,6 @@ tbody td:last-child {
 
   table {
     width: 100%;
-    min-width: 0;
   }
 
   thead th {
@@ -410,25 +425,16 @@ tbody td:last-child {
   }
 
   .place {
-    width: 48px;
-    font-size: 14px;
+    width: 45px;
+    font-size: 13px;
   }
 
-  .team-picker {
-    gap: 4px;
-    min-height: 35px;
-  }
-
-  .team-dot {
-    width: 25px;
-    height: 25px;
-    border-width: 2px;
-  }
-
-  .team-dot.empty::after {
-    width: 7px;
-    height: 7px;
-    border-width: 1.5px;
+  .team-select {
+    height: 34px;
+    max-width: 100%;
+    padding: 0 5px;
+    border-radius: 10px;
+    font-size: 10px;
   }
 
   .rank-row {
@@ -441,6 +447,8 @@ tbody td:last-child {
 <body>
 
 <div class="app">
+
+  <!-- HEADER -->
 
   <header class="header">
     <h1>MONOPOLY GO!</h1>
@@ -458,17 +466,28 @@ tbody td:last-child {
       Selecciona los 4 equipos de esta carrera
     </p>
 
-    <div class="color-options" id="colorOptions"></div>
+    <div
+      class="color-options"
+      id="colorOptions">
+    </div>
 
     <div class="selected-info">
+
       Seleccionados:
+
       <strong>
         <span id="selectedCount">0</span>/4
       </strong>
+
     </div>
 
-    <div class="warning" id="warning">
-      Selecciona exactamente 4 colores para registrar resultados.
+    <div
+      class="warning"
+      id="warning">
+
+      Selecciona exactamente 4 colores
+      para registrar resultados.
+
     </div>
 
   </section>
@@ -478,10 +497,12 @@ tbody td:last-child {
 
   <section class="card table-card">
 
-    <h2 class="card-title">🏁 Resultados de las carreras</h2>
+    <h2 class="card-title">
+      🏁 Resultados de las carreras
+    </h2>
 
     <p class="card-subtitle">
-      Toca un círculo para asignar ese equipo a la posición
+      Selecciona el equipo que quedó en cada posición
     </p>
 
     <div class="table-wrapper">
@@ -491,10 +512,15 @@ tbody td:last-child {
         <thead>
 
           <tr>
+
             <th>Lugar</th>
-            <th class="round-header">Ronda 1</th>
-            <th class="round-header">Ronda 2</th>
-            <th class="round-header">Ronda 3</th>
+
+            <th>Ronda 1</th>
+
+            <th>Ronda 2</th>
+
+            <th>Ronda 3</th>
+
           </tr>
 
         </thead>
@@ -505,24 +531,33 @@ tbody td:last-child {
 
     </div>
 
-    <button class="reset-button" onclick="resetResults()">
+    <button
+      class="reset-button"
+      onclick="resetResults()">
+
       ↻ Reiniciar resultados
+
     </button>
 
   </section>
 
 
-  <!-- CLASIFICACIÓN FINAL -->
+  <!-- CLASIFICACIÓN -->
 
   <section class="card">
 
-    <h2 class="card-title">🏆 Clasificación final</h2>
+    <h2 class="card-title">
+      🏆 Clasificación final
+    </h2>
 
     <p class="card-subtitle">
       Posición general según los puntos acumulados
     </p>
 
-    <div class="ranking" id="ranking"></div>
+    <div
+      class="ranking"
+      id="ranking">
+    </div>
 
   </section>
 
@@ -601,12 +636,14 @@ const points = {
 
 
 /* =========================================================
-   DATOS
+   DATOS GUARDADOS
 ========================================================= */
 
 let selectedColors =
   JSON.parse(
-    localStorage.getItem("monopolyRaceColors")
+    localStorage.getItem(
+      "monopolyRaceColors"
+    )
   ) || [
     "red",
     "pink",
@@ -617,7 +654,9 @@ let selectedColors =
 
 let results =
   JSON.parse(
-    localStorage.getItem("monopolyRace")
+    localStorage.getItem(
+      "monopolyRace"
+    )
   ) || {
 
     1: ["", "", "", ""],
@@ -649,17 +688,19 @@ function saveData() {
 
 
 /* =========================================================
-   SELECCIONAR / DESELECCIONAR COLORES
+   COLORES QUE COMPITEN
 ========================================================= */
 
 function selectRaceColor(key) {
 
   /*
-    Si ya está seleccionado:
-    LO QUITAMOS.
+    SI YA ESTÁ SELECCIONADO:
+    LO DESELECCIONAMOS.
   */
 
-  if (selectedColors.includes(key)) {
+  if (
+    selectedColors.includes(key)
+  ) {
 
     selectedColors =
       selectedColors.filter(
@@ -669,13 +710,15 @@ function selectRaceColor(key) {
   }
 
   /*
-    Si no está seleccionado:
-    LO AGREGAMOS solamente si hay menos de 4.
+    SI NO ESTÁ SELECCIONADO:
+    SOLO LO AGREGAMOS SI HAY MENOS DE 4.
   */
 
   else {
 
-    if (selectedColors.length >= 4) {
+    if (
+      selectedColors.length >= 4
+    ) {
 
       return;
 
@@ -687,8 +730,8 @@ function selectRaceColor(key) {
 
 
   /*
-    Cada vez que cambia la combinación
-    de equipos, limpiamos los resultados.
+    Los resultados anteriores corresponden
+    a otros equipos, así que se limpian.
   */
 
   results = {
@@ -727,15 +770,19 @@ function renderColorOptions() {
   container.innerHTML = "";
 
 
-  Object.keys(availableColors).forEach(key => {
+  Object.keys(
+    availableColors
+  ).forEach(key => {
 
     const button =
-      document.createElement("button");
+      document.createElement(
+        "button"
+      );
+
+    button.type = "button";
 
     button.className =
       "setup-color";
-
-    button.type = "button";
 
     button.style.background =
       availableColors[key].color;
@@ -748,7 +795,9 @@ function renderColorOptions() {
       selectedColors.includes(key)
     ) {
 
-      button.classList.add("selected");
+      button.classList.add(
+        "selected"
+      );
 
     }
 
@@ -795,122 +844,177 @@ function renderResults() {
   body.innerHTML = "";
 
 
-  const rounds = [1, 2, 3];
+  [0, 1, 2, 3].forEach(
+    position => {
+
+      const row =
+        document.createElement(
+          "tr"
+        );
 
 
-  for (let position = 0; position < 4; position++) {
+      const placeCell =
+        document.createElement(
+          "td"
+        );
 
-    const row =
-      document.createElement("tr");
+      placeCell.className =
+        "place";
 
+      placeCell.textContent =
+        `${position + 1}.º`;
 
-    const placeCell =
-      document.createElement("td");
-
-    placeCell.className = "place";
-
-    placeCell.textContent =
-      `${position + 1}.º`;
-
-    row.appendChild(placeCell);
-
-
-    rounds.forEach(round => {
-
-      const resultCell =
-        document.createElement("td");
+      row.appendChild(
+        placeCell
+      );
 
 
-      const picker =
-        document.createElement("div");
+      [1, 2, 3].forEach(
+        round => {
 
-      picker.className =
-        "team-picker";
-
-
-      /*
-        BOTÓN PARA DEJAR LA POSICIÓN VACÍA
-      */
-
-      const empty =
-        document.createElement("div");
-
-      empty.className =
-        "team-dot empty";
-
-      empty.title =
-        "Quitar selección";
+          const cell =
+            document.createElement(
+              "td"
+            );
 
 
-      empty.onclick = () => {
+          const select =
+            document.createElement(
+              "select"
+            );
 
-        results[round][position] = "";
-
-        saveData();
-
-        renderResults();
-
-        renderRanking();
-
-      };
+          select.className =
+            "team-select";
 
 
-      picker.appendChild(empty);
+          /*
+            OPCIÓN VACÍA
+          */
 
+          const emptyOption =
+            document.createElement(
+              "option"
+            );
 
-      /*
-        COLORES DE LOS EQUIPOS
-      */
+          emptyOption.value = "";
 
-      selectedColors.forEach(colorKey => {
+          emptyOption.textContent =
+            "—";
 
-        const dot =
-          document.createElement("div");
-
-        dot.className =
-          "team-dot";
-
-        dot.style.background =
-          availableColors[colorKey].color;
-
-        dot.title =
-          availableColors[colorKey].name;
-
-
-        if (
-          results[round][position]
-          === colorKey
-        ) {
-
-          dot.classList.add("active");
-
-        }
-
-
-        dot.onclick = () => {
-
-          assignTeam(
-            round,
-            position,
-            colorKey
+          select.appendChild(
+            emptyOption
           );
 
-        };
+
+          /*
+            COLORES DISPONIBLES
+          */
+
+          selectedColors.forEach(
+            colorKey => {
+
+              const option =
+                document.createElement(
+                  "option"
+                );
+
+              option.value =
+                colorKey;
+
+              option.textContent =
+                availableColors[
+                  colorKey
+                ].name;
 
 
-        picker.appendChild(dot);
+              select.appendChild(
+                option
+              );
 
-      });
-
-
-      resultCell.appendChild(picker);
-
-      row.appendChild(resultCell);
-
-    });
+            }
+          );
 
 
-    body.appendChild(row);
+          /*
+            VALOR ACTUAL
+          */
+
+          select.value =
+            results[round][position];
+
+
+          updateSelectStyle(
+            select
+          );
+
+
+          /*
+            CAMBIO DE EQUIPO
+          */
+
+          select.onchange = () => {
+
+            assignTeam(
+              round,
+              position,
+              select.value
+            );
+
+          };
+
+
+          cell.appendChild(
+            select
+          );
+
+          row.appendChild(
+            cell
+          );
+
+        }
+      );
+
+
+      body.appendChild(
+        row
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   ESTILO DEL DESPLEGABLE
+========================================================= */
+
+function updateSelectStyle(select) {
+
+  /*
+    Quitamos clases anteriores.
+  */
+
+  Object.keys(
+    availableColors
+  ).forEach(key => {
+
+    select.classList.remove(
+      `selected-${key}`
+    );
+
+  });
+
+
+  /*
+    Aplicamos la clase del color elegido.
+  */
+
+  if (select.value) {
+
+    select.classList.add(
+      `selected-${select.value}`
+    );
 
   }
 
@@ -928,22 +1032,45 @@ function assignTeam(
 ) {
 
   /*
-    Buscamos si este equipo ya estaba
-    en otra posición de la misma ronda.
+    Si se eligió "—",
+    simplemente dejamos la posición vacía.
   */
 
-  for (let i = 0; i < 4; i++) {
+  if (!colorKey) {
+
+    results[round][position] =
+      "";
+
+    saveData();
+
+    renderResults();
+
+    renderRanking();
+
+    return;
+
+  }
+
+
+  /*
+    Si el equipo ya estaba en otra posición
+    de ESTA MISMA ronda,
+    lo quitamos de allí.
+  */
+
+  for (
+    let i = 0;
+    i < 4;
+    i++
+  ) {
 
     if (
       i !== position &&
       results[round][i] === colorKey
     ) {
 
-      /*
-        Lo quitamos de su posición anterior.
-      */
-
-      results[round][i] = "";
+      results[round][i] =
+        "";
 
     }
 
@@ -981,7 +1108,9 @@ function renderRanking() {
   container.innerHTML = "";
 
 
-  if (selectedColors.length !== 4) {
+  if (
+    selectedColors.length !== 4
+  ) {
 
     return;
 
@@ -989,38 +1118,46 @@ function renderRanking() {
 
 
   const ranking =
-    selectedColors.map(colorKey => {
+    selectedColors.map(
+      colorKey => {
 
-      let total = 0;
+        let total = 0;
 
 
-      [1, 2, 3].forEach(round => {
+        [1, 2, 3].forEach(
+          round => {
 
-        results[round].forEach(
-          (team, position) => {
+            results[round].forEach(
+              (team, position) => {
 
-            if (team === colorKey) {
+                if (
+                  team === colorKey
+                ) {
 
-              total +=
-                points[round][position];
+                  total +=
+                    points[
+                      round
+                    ][position];
 
-            }
+                }
+
+              }
+            );
 
           }
         );
 
-      });
 
+        return {
 
-      return {
+          colorKey,
 
-        colorKey,
+          total
 
-        total
+        };
 
-      };
-
-    });
+      }
+    );
 
 
   /*
@@ -1028,7 +1165,8 @@ function renderRanking() {
   */
 
   ranking.sort(
-    (a, b) => b.total - a.total
+    (a, b) =>
+      b.total - a.total
   );
 
 
@@ -1036,14 +1174,18 @@ function renderRanking() {
     (team, index) => {
 
       const row =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       row.className =
         "rank-row";
 
 
       const number =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       number.className =
         "rank-number";
@@ -1053,7 +1195,9 @@ function renderRanking() {
 
 
       const teamName =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       teamName.className =
         "rank-team";
@@ -1070,7 +1214,9 @@ function renderRanking() {
 
 
       const total =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       total.className =
         "rank-points";
@@ -1079,14 +1225,22 @@ function renderRanking() {
         `${team.total} pts`;
 
 
-      row.appendChild(number);
+      row.appendChild(
+        number
+      );
 
-      row.appendChild(teamName);
+      row.appendChild(
+        teamName
+      );
 
-      row.appendChild(total);
+      row.appendChild(
+        total
+      );
 
 
-      container.appendChild(row);
+      container.appendChild(
+        row
+      );
 
     }
   );
@@ -1110,6 +1264,11 @@ function resetResults() {
 
   };
 
+
+  /*
+    IMPORTANTE:
+    NO TOCAMOS selectedColors.
+  */
 
   saveData();
 
